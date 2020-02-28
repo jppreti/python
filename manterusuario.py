@@ -28,11 +28,18 @@ while opcao != '0':
             if nome=='sair': break
             telefone = input('Telefone: ')
             usuarios.append(nome + ';' + telefone)
-    if (opcao == '2'): usuarios.remove(input('Usuário a ser excluído: '))
+    if (opcao == '2'):
+        nome = input('Usuário a ser excluído: ')
+        for u in usuarios:
+            if u.strip().split(';')[0] == nome:
+                usuarios.remove(u)
+                break
     if (opcao == '3'):
         usuarios.sort() #ordena os elementos da lista
         for u in usuarios:
-            print(u.strip().split(';')[0]) #retira o \n porque o print já faz quebra de linha
+            #retira o \n porque o print já faz quebra de linha
+            registro = u.strip().split(';')
+            print(registro[0] + '\t' + registro[1])
         input('') #serve apenas para pausar após exibir a lista
 
 with open('usuarios.dat','w') as arquivo:
