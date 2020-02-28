@@ -10,8 +10,11 @@ menu = '''
 [0] - Sair
 
 '''
+#abre o arquivo usuarios.dat e carrega cada linha como um usuario dentro da lista
 with open('usuarios.dat','r') as arquivo:
-    for linha in arquivo:
+    for linha in arquivo: #para cada linha do arquivo
+        #se o tamanho da linha desconsiderando os espaços em branco for maior que zero
+        #adiciona essa linha na lista como sendo o nome de um usuario
         if len(linha.strip())>0: usuarios.append(linha.strip())
 
 while opcao != '0':
@@ -19,12 +22,17 @@ while opcao != '0':
     print(menu.format(len(usuarios))) #adiciona a qtde de usuarios cadastrados no menu
     opcao = input('Digite a opção desejada: ')
 
-    if (opcao == '1'): usuarios.append(input('Novo usuário: '))
+    if (opcao == '1'):
+        while True:
+            nome = input('Nome: ')
+            if nome=='sair': break
+            telefone = input('Telefone: ')
+            usuarios.append(nome + ';' + telefone)
     if (opcao == '2'): usuarios.remove(input('Usuário a ser excluído: '))
     if (opcao == '3'):
         usuarios.sort() #ordena os elementos da lista
         for u in usuarios:
-            print(u.strip()) #retira o \n porque o print já faz quebra de linha
+            print(u.strip().split(';')[0]) #retira o \n porque o print já faz quebra de linha
         input('') #serve apenas para pausar após exibir a lista
 
 with open('usuarios.dat','w') as arquivo:
